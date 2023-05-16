@@ -21,7 +21,7 @@
             </div>
             <ul class="d-flex justify-content-around list-unstyled">
                 <li class="fs-4 fw-medium text-capitalize">
-                    <a class="text-decoration-none text-white mx-3" href="manage.html">Manage</a>
+                    <a class="text-decoration-none text-white mx-3" href="{{ route('manage.index') }}">Manage</a>
                 </li>
                 <li class="fs-4 fw-medium text-capitalize">
                     <a class="text-decoration-none text-white mx-3" target="_blank" href="https://github.com/Fahimi-eng">Github</a>
@@ -39,10 +39,10 @@
             <nav class="d-flex justify-content-between align-items-center">
                 <ul class="manage-menu d-flex justify-content-start align-items-center flex-wrap p-0 px-2">
                     <li class="mx-2 menu-active">
-                        <a href="manage.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+                        <a href="{{ route('manage.index') }}"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
                     </li>
                     <li class="mx-2">
-                        <a href="posts.html"><i class="fa-solid fa-clone"></i> Posts</a>
+                        <a href="{{ route('manage.posts') }}"><i class="fa-solid fa-clone"></i> Posts</a>
                     </li>
                     <li class="mx-2">
                         <a href="#"><i class="fa-solid fa-user"></i> Account</a>
@@ -50,7 +50,7 @@
                 </ul>
                 <ul class="p-0 px-2">
                    <li>
-                    <a href="#" class="logout mx-2 bg-danger-subtle">
+                    <a href="{{ route('login.destroy') }}" class="logout mx-2 bg-danger-subtle">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                         Logout
                        </a>

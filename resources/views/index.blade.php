@@ -17,11 +17,11 @@
         <div class="header d-flex justify-content-between bg-primary pt-2 bg-transparent text-white border-bottom">
             <div class="logo">
                 <!-- <img src="" alt=""> -->
-                <a href="index.blade.php" class="fs-1 fw-bold logo text-decoration-none text-white">Logo</a>
+                <a href="{{ route('index') }}" class="fs-1 fw-bold logo text-decoration-none text-white">Logo</a>
             </div>
             <ul class="d-flex justify-content-around list-unstyled">
                 <li class="fs-4 fw-medium text-capitalize">
-                    <a class="text-decoration-none text-white mx-3" href="manage.html">Manage</a>
+                    <a class="text-decoration-none text-white mx-3" href="{{ route('manage.index') }}">Manage</a>
                 </li>
                 <li class="fs-4 fw-medium text-capitalize">
                     <a class="text-decoration-none text-white mx-3" target="_blank" href="https://github.com/Fahimi-eng">Github</a>
@@ -47,11 +47,6 @@
                 @foreach($categories as $category)
                 <li class=""><a href="#"><img class="rounded-3" src="{{ $category['cover'] }}" alt="food"><span class="fs-5 fw-bold text-capitalize cat-title">{{ $category['title'] }}</span></a></li>
                 @endforeach
-{{--                <li class=""><a href="#"><img class="rounded-3" src="assets/img/sport.jpeg" alt="sport"><span class="fs-5 fw-bold cat-title">Sport</span></a></li>--}}
-{{--                <li class=""><a href="#"><img class="rounded-3" src="assets/img/life.jpeg" alt="life"><span class="fs-5 fw-bold cat-title">Life</span></a></li>--}}
-{{--                <li class=""><a href="#"><img class="rounded-3" src="assets/img/tech.jpg" alt="tech"><span class="fs-5 fw-bold cat-title">Technology</span></a></li>--}}
-{{--                <li class=""><a href="#"><img class="rounded-3" src="assets/img/earth.jpg" alt="planet"><span class="fs-5 fw-bold cat-title">Earth</span></a></li>--}}
-{{--                <li class=""><a href="#"><img class="rounded-3" src="assets/img/international.jpg" alt="international"><span class="fs-5 fw-bold cat-title">International</span></a></li>--}}
             </ul>
         </div>
 
@@ -59,10 +54,6 @@
             <div class="topic px-2 pt-3">
                 <div class="head d-flex justify-content-between align-items-center">
                     <h1>Posts</h1>
-                    <!-- <div class="filters d-flex">
-                        <a class=" fs-4" href="#"><i class="fa-solid fa-rotate-left"></i></a>
-                        <a class=" fs-4" href="#"><i class="fa-solid fa-circle-up"></i></a>
-                    </div> -->
                     <div class="input-group" style="max-width: 300px;">
                         <input type="search" class="form-control rounded" placeholder="Enter Your Key word" aria-label="Search" aria-describedby="search-addon" />
                         <button type="button" class="btn btn-outline-primary">search</button>
@@ -72,162 +63,21 @@
             </div>
             <div class="content  px-2 py-2 mt-2  d-flex justify-content-between align-items-start flex-wrap">
 
+                @foreach($posts as $post)
                 <!-- start card -->
                 <div class="card my-2" style="width: 18rem;">
-                    <img src="https://shoonia.github.io/1x1/favicon.png" class="card-img-top" alt="post image">
+                    <img src="/{{ str_replace('public','storage',$post->cover) }}" class="card-img-top" alt="post image">
                     <div class="card-body">
-                      <h5 class="card-title fs-2 text-capitalize">Card title</h5>
-                      <p class="cat-post px-2 py-1 rounded-2">Sport</p>
+                      <h5 class="card-title fs-2 text-capitalize">{{ $post->title }}</h5>
+                      <p class="cat-post px-2 py-1 text-capitalize rounded-2">{{ $post->category->title }}</p>
                       <a class="text-muted  d-inline-block" href="index.blade.php" style="font-size: 16px;"><i class="fa-solid fa-user"></i> Finn Wolfhard </a>
                       <hr>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="post.html" class="btn btn-primary">Go</a>
+                      <p class="card-text">{{ $post->summary }}</p>
+                      <a href="{{ route('post.show',['id'=>$post]) }}" class="btn btn-primary">Go</a>
                     </div>
                 </div>
                 <!-- end card -->
-                <!-- start card -->
-                <div class="card my-2" style="width: 18rem;">
-                    <img src="https://shoonia.github.io/1x1/favicon.png" class="card-img-top" alt="post image">
-                    <div class="card-body">
-                      <h5 class="card-title fs-2 text-capitalize">Card title</h5>
-                      <p class="cat-post px-2 py-1 rounded-2">Sport</p>
-                      <a class="text-muted  d-inline-block" href="index.blade.php" style="font-size: 16px;"><i class="fa-solid fa-user"></i> Finn Wolfhard </a>
-                      <hr>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="post.html" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-                <!-- end card -->
-                <!-- start card -->
-                <div class="card my-2" style="width: 18rem;">
-                    <img src="https://shoonia.github.io/1x1/favicon.png" class="card-img-top" alt="post image">
-                    <div class="card-body">
-                      <h5 class="card-title fs-2 text-capitalize">Card title</h5>
-                      <p class="cat-post px-2 py-1 rounded-2">Sport</p>
-                      <a class="text-muted  d-inline-block" href="index.blade.php" style="font-size: 16px;"><i class="fa-solid fa-user"></i> Finn Wolfhard </a>
-                      <hr>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="post.html" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-                <!-- end card -->
-                <!-- start card -->
-                <div class="card my-2" style="width: 18rem;">
-                    <img src="https://shoonia.github.io/1x1/favicon.png" class="card-img-top" alt="post image">
-                    <div class="card-body">
-                      <h5 class="card-title fs-2 text-capitalize">Card title</h5>
-                      <p class="cat-post px-2 py-1 rounded-2">Sport</p>
-                      <a class="text-muted  d-inline-block" href="index.blade.php" style="font-size: 16px;"><i class="fa-solid fa-user"></i> Finn Wolfhard </a>
-                      <hr>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="post.html" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-                <!-- end card -->
-                <!-- start card -->
-                <div class="card my-2" style="width: 18rem;">
-                    <img src="https://shoonia.github.io/1x1/favicon.png" class="card-img-top" alt="post image">
-                    <div class="card-body">
-                      <h5 class="card-title fs-2 text-capitalize">Card title</h5>
-                      <p class="cat-post px-2 py-1 rounded-2">Sport</p>
-                      <a class="text-muted  d-inline-block" href="index.blade.php" style="font-size: 16px;"><i class="fa-solid fa-user"></i> Finn Wolfhard </a>
-                      <hr>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="post.html" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-                <!-- end card -->
-                <!-- start card -->
-                <div class="card my-2" style="width: 18rem;">
-                    <img src="https://shoonia.github.io/1x1/favicon.png" class="card-img-top" alt="post image">
-                    <div class="card-body">
-                      <h5 class="card-title fs-2 text-capitalize">Card title</h5>
-                      <p class="cat-post px-2 py-1 rounded-2">Sport</p>
-                      <a class="text-muted  d-inline-block" href="index.blade.php" style="font-size: 16px;"><i class="fa-solid fa-user"></i> Finn Wolfhard </a>
-                      <hr>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="post.html" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-                <!-- end card -->
-                <!-- start card -->
-                <div class="card my-2" style="width: 18rem;">
-                    <img src="https://shoonia.github.io/1x1/favicon.png" class="card-img-top" alt="post image">
-                    <div class="card-body">
-                      <h5 class="card-title fs-2 text-capitalize">Card title</h5>
-                      <p class="cat-post px-2 py-1 rounded-2">Sport</p>
-                      <a class="text-muted  d-inline-block" href="index.blade.php" style="font-size: 16px;"><i class="fa-solid fa-user"></i> Finn Wolfhard </a>
-                      <hr>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="post.html" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-                <!-- end card -->
-                <!-- start card -->
-                <div class="card my-2" style="width: 18rem;">
-                    <img src="https://shoonia.github.io/1x1/favicon.png" class="card-img-top" alt="post image">
-                    <div class="card-body">
-                      <h5 class="card-title fs-2 text-capitalize">Card title</h5>
-                      <p class="cat-post px-2 py-1 rounded-2">Sport</p>
-                      <a class="text-muted  d-inline-block" href="index.blade.php" style="font-size: 16px;"><i class="fa-solid fa-user"></i> Finn Wolfhard </a>
-                      <hr>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="post.html" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-                <!-- end card -->
-                <!-- start card -->
-                <div class="card my-2" style="width: 18rem;">
-                    <img src="https://shoonia.github.io/1x1/favicon.png" class="card-img-top" alt="post image">
-                    <div class="card-body">
-                      <h5 class="card-title fs-2 text-capitalize">Card title</h5>
-                      <p class="cat-post px-2 py-1 rounded-2">Sport</p>
-                      <a class="text-muted  d-inline-block" href="index.blade.php" style="font-size: 16px;"><i class="fa-solid fa-user"></i> Finn Wolfhard </a>
-                      <hr>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="post.html" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-                <!-- end card -->
-                <!-- start card -->
-                <div class="card my-2" style="width: 18rem;">
-                    <img src="https://shoonia.github.io/1x1/favicon.png" class="card-img-top" alt="post image">
-                    <div class="card-body">
-                      <h5 class="card-title fs-2 text-capitalize">Card title</h5>
-                      <p class="cat-post px-2 py-1 rounded-2">Sport</p>
-                      <a class="text-muted  d-inline-block" href="index.blade.php" style="font-size: 16px;"><i class="fa-solid fa-user"></i> Finn Wolfhard </a>
-                      <hr>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="post.html" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-                <!-- end card -->
-                <!-- start card -->
-                <div class="card my-2" style="width: 18rem;">
-                    <img src="https://shoonia.github.io/1x1/favicon.png" class="card-img-top" alt="post image">
-                    <div class="card-body">
-                      <h5 class="card-title fs-2 text-capitalize">Card title</h5>
-                      <p class="cat-post px-2 py-1 rounded-2">Sport</p>
-                      <a class="text-muted  d-inline-block" href="index.blade.php" style="font-size: 16px;"><i class="fa-solid fa-user"></i> Finn Wolfhard </a>
-                      <hr>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="post.html" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-                <!-- end card -->
-                <!-- start card -->
-                <div class="card my-2" style="width: 18rem;">
-                    <img src="https://shoonia.github.io/1x1/favicon.png" class="card-img-top" alt="post image">
-                    <div class="card-body">
-                      <h5 class="card-title fs-2 text-capitalize">Card title</h5>
-                      <p class="cat-post px-2 py-1 rounded-2">Sport</p>
-                      <a class="text-muted  d-inline-block" href="index.blade.php" style="font-size: 16px;"><i class="fa-solid fa-user"></i> Finn Wolfhard </a>
-                      <hr>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="post.html" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-                <!-- end card -->
+                @endforeach
             </div>
             <hr class="mx-2">
             <nav aria-label="Page navigation example" class="pb-2">

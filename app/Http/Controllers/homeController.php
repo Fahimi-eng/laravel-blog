@@ -10,7 +10,7 @@ class homeController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::query()->with('category')->get();
         $categories = Category::all();
         return view('index',[
             'posts' => $posts,

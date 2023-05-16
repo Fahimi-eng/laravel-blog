@@ -10,12 +10,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
     <title>blog</title>
 </head>
 <body class="mb-5">
     <div class="container">
         <div class="header d-flex justify-content-between bg-primary pt-2 bg-transparent text-white border-bottom">
             <div class="logo">
+                <!-- <img src="" alt=""> -->
                 <a href="{{ route('index') }}" class="fs-1 fw-bold logo text-decoration-none text-white">Logo</a>
             </div>
             <ul class="d-flex justify-content-around list-unstyled">
@@ -27,11 +29,10 @@
                 </li>
             </ul>
         </div>
-
         <div class="jumbotron mt-3 bg-white rounded-2 px-0 py-2 pt-0">
             <div class="banner text-center pt-3"><span class="fs-2 text-bg-light px-2 rounded-2 mt-5">Fahimi-Eng</span></div>
             <div class="head d-flex justify-content-between mx-3 mt-2 align-items-center">
-                <h1 >Management  <small class="fs-5"><i class="fa-solid fa-angle-right"></i> Posts </small></h1>
+                <h1 >Management  <small class="fs-5"><i class="fa-solid fa-angle-right"></i> Posts <i class="fa-solid fa-angle-right"></i> Edit Post</small></h1>
                 <p>Welcome, Have a good day</p>
             </div>
             <hr class="mx-2">
@@ -49,7 +50,7 @@
                 </ul>
                 <ul class="p-0 px-2">
                    <li>
-                    <a href="{{ route('login.destroy') }}" class="logout mx-2 bg-danger-subtle">
+                    <a href="#" class="logout mx-2 bg-danger-subtle">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                         Logout
                        </a>
@@ -57,54 +58,54 @@
                 </ul>
             </nav>
         </div>
-
-        <div class="alert-box pt-3">
+        @if (count($errors) > 0)
+        <div class="alert-box ">
+        @foreach($errors->all as $error)
+                {{ "dahanet servidce kar kon dg" }}
             <div class="alert alert-primary" role="alert">
-                This is a primary alert—check it out!
+                {{ $error }}
             </div>
-{{--            <div class="alert alert-secondary" role="alert">--}}
-{{--                This is a secondary alert—check it out!--}}
-{{--            </div>--}}
-{{--            <div class="alert alert-success" role="alert">--}}
-{{--                This is a success alert—check it out!--}}
-{{--            </div>--}}
-{{--            <div class="alert alert-danger" role="alert">--}}
-{{--                This is a danger alert—check it out!--}}
-{{--            </div>--}}
-{{--            <div class="alert alert-warning" role="alert">--}}
-{{--                This is a warning alert—check it out!--}}
-{{--            </div>--}}
+        @endforeach
         </div>
-
-        <div class="content-container bg-white rounded-2 my-3">
-            <div class="topic px-2 pt-3 d-flex justify-content-between">
-                <h1>My Posts</h1>
-                <p class="lead px-3">
-                    <a class="btn btn-primary btn" href="{{ route('manage.posts.create') }}" role="button">Create Post</a>
-                </p>
-            </div>
-            <hr class="mx-2">
-            <ul class="list-group px-2 pb-3">
-                @foreach($posts as $post)
-                <li class="list-group-item list-group-item-action d-flex justify-content-between">
-                    <a href="#" class=" ">{{ $post->title }}</a>
-                    <div class="toolbars">
-                        <a class="mx-1" href="{{ route('manage.posts.show',['id'=>$post->id]) }}"><i class="fa-solid fa-eye"></i></a>
-                        <a class="mx-1" href="{{ route('manage.posts.edit',$post) }}"><i class="fa-solid fa-pen"></i></a>
-                        <form action="{{ route('manage.posts.delete',$post) }}" method="post" class="d-inline mx-1">
-                            @csrf
-                            @method('DELETE')
-                            <button class="d-inline border-0 bg-transparent" type="submit">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </form>
-                    </div>
-                </li>
-                @endforeach
-              </ul>
+        @endif
+        <div class="form bg-white mt-3 p-3 rounded-3">
+            <h2>Edit Post</h2>
+            <hr>
+            <form action="{{ route('manage.posts.update',$post) }}" method="post" class="" enctype="multipart/form-data">
+            @csrf
+                @method('PATCH')
+                <div class="form-group">
+                  <label for="title">Post Title</label>
+                  <input value="{{ $post->title }}" required name="title" type="title" class="form-control" id="title"  placeholder="Enter Title">
+                  <small id="emailHelp" class="form-text text-muted">A suitable title will help your post to be more visible </small>
+                </div>
+                <div class="form-group mt-3">
+                  <label for="category">Thematic category</label>
+                  <select required name="category" class="form-control" id="category">
+                    @foreach($categories as $category)
+                    <option @if($category->id == $post->category_id) selected @endif class="text-capitalize" value="{{ $category->id }}">{{ $category->title }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="summary">Enter Summary of Your Post</label>
+                    <textarea name="summary" class="form-control" id="summary" rows="2" placeholder="Type Here ...">
+                        {{ $post->summary }}
+                    </textarea>
+                </div>
+                <div class="form-group mt-3  ">
+                    <label for="cover">Select the Post Cover:</label>
+                    <input name="cover" type="file" class="form-control-file mx-5 border  rounded-2 px-2 py-1" id="cover">
+                    <img src="/{{ str_replace('public','storage',$post->cover) }}" style="max-height: 250px" alt="cover">
+                </div>
+                <div class="form-group mt-3">
+                    <textarea required name="body">
+                        {!! $post->body !!}
+                    </textarea>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            </form>
         </div>
-
-
         <hr class="text-white">
         <div class="footer text-center">
             <p class="text-capitalize">themes by @fahimi-eng</p>
@@ -112,6 +113,9 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+    <script>
+        CKEDITOR.replace( 'body' );
+    </script>
     <script src="assets/js/main.js"></script>
 </body>
 </html>

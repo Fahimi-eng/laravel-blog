@@ -15,7 +15,7 @@
 <body class="">
     <div class="login">
         <div id="formContent">
-          <a class="back" href="index.blade.php"><i class="fa-solid fa-caret-left me-1"></i>Back</a>
+          <a class="back" href="{{ route('index') }}"><i class="fa-solid fa-caret-left me-1"></i>Back</a>
             <!-- Tabs Titles -->
             <!-- Icon -->
             <div class="fadeIn first">
@@ -23,9 +23,11 @@
             </div>
 
             <!-- Login Form -->
-            <form>
-              <input type="text" id="login" class="fadeIn second" name="login[username]" placeholder="username">
-              <input type="text" id="password" class="fadeIn third" name="login[password]" placeholder="password">
+            <form action="{{ route('login.store') }}" method="post">
+                @csrf
+                @method('POST')
+              <input type="text" id="login" class="fadeIn second" name="username" placeholder="username">
+              <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
               <input type="submit" class="fadeIn fourth" value="Log In">
             </form>
 
